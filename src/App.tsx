@@ -5,6 +5,7 @@ import "./App.css";
 import { Button } from "@/components/ui/button";
 import { Moon, Sun } from "lucide-react" // Icons importieren
 import { Input } from "./components/ui/input";
+import { ClassList } from "./components/ui/ClassList";
 
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
@@ -31,7 +32,7 @@ function App() {
   }
 
   return (
-    <main className="flex flex-col items-center m-2 p-2">
+    <main className="flex flex-col items-center m-2 p-2 w-full">
       <div className="m-2 p-2">
          <h1>Welcome to Tauri + React</h1>
       </div>
@@ -67,6 +68,9 @@ function App() {
           </div>
         </Button>
       </div>      
+      <div className="sm:w-4/12 md:w-6/12 lg:w-7/12">
+        <ClassList />
+      </div>
     </main>
   );
 }
