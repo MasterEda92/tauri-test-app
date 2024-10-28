@@ -113,7 +113,7 @@ export function CreateSubjectDialog({
                 </p>
               )}
             </div>
-            <Button variant="outline" type="submit" className="w-full" disabled={isSubmitting}>
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
               {isSubmitting ? "Wird gespeichert..." : "Speichern"}
             </Button>
           </form>
