@@ -66,7 +66,7 @@ export function CreateSubjectDialog({
     return (
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogTrigger asChild>
-          <Button>Neues Fach</Button>
+          <Button variant="outline">Neues Fach</Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
@@ -113,7 +113,7 @@ export function CreateSubjectDialog({
                 </p>
               )}
             </div>
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
+            <Button variant="outline" type="submit" className="w-full" disabled={isSubmitting}>
               {isSubmitting ? "Wird gespeichert..." : "Speichern"}
             </Button>
           </form>

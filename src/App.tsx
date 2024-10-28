@@ -27,11 +27,11 @@ function App() {
   return (
     <Router>
       <SidebarProvider defaultOpen>
-        <div className="flex w-full h-screen overflow-hidden bg-gray-950">
+        <div className="flex w-full h-screen overflow-hidden">
           <AppSidebar />
           <main className="flex-1 items-center flex flex-col h-full">
             <div className="flex flex-col w-full h-full">
-              <header className="border-b border-gray-200 dark:border-gray-800 p-4">
+              <header className="border-b p-4">
                 <div className="flex justify-end items-center px-4">
                   <SidebarTrigger className="mr-auto" />
                   <Button variant="ghost" onClick={toggleDarkMode}>
