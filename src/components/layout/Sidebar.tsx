@@ -11,7 +11,8 @@ import {
   SidebarHeader,
   SidebarFooter,
 } from "@/components/ui/sidebar";
-import { BookOpen, GraduationCap, Calendar, Settings, NotebookPenIcon } from "lucide-react";
+import { BookOpen, GraduationCap, Calendar, Settings } from "lucide-react";
+import { ChalkboardTeacher } from "@phosphor-icons/react";
 
 const stammdaten = [
   {
@@ -40,9 +41,12 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
-        <div className="flex flex-row justify-start gap-3 p-2">
-          <NotebookPenIcon />
-          <p>Planedo</p>
+        <div className="flex flex-row justify-start items-center gap-3 p-2">
+          <ChalkboardTeacher 
+            
+            className="text-4xl text-primary hover:text-primary/80 transition-colors" 
+          />
+          <p className="text-2xl">Planedo</p>
         </div>        
       </SidebarHeader>
       <SidebarContent>
