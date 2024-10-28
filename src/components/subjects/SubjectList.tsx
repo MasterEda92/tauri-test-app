@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Subject, subjectApi } from "@/lib/db";
 import { CreateSubjectDialog } from "./CreateSubjectDialog";
+import { SubjectCard } from "./SubjectCard";
 
 export function SubjectList() {
   const [subjects, setSubjects] = useState<Subject[]>([]);
@@ -37,16 +32,7 @@ export function SubjectList() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {subjects.map((subject) => (
-          <Card key={subject.id}>
-            <CardHeader>
-              <CardTitle>{subject.name}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground">
-                Kürzel: {subject.short_name}
-              </p>
-            </CardContent>
-          </Card>
+          <SubjectCard key={subject.id} subject={subject} />
         ))}
       </div>
     </div>

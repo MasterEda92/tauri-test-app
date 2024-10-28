@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { Class, classApi } from "@/lib/db";
 import { CreateClassDialog } from "./CreateClassDialog";
+import { ClassCard } from "./ClassCard";
 
 export function ClassList() {
   const [classes, setClasses] = useState<Class[]>([]);
@@ -56,14 +55,7 @@ export function ClassList() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {classes.map((class_) => (
-            <Card key={class_.id}>
-              <CardHeader>
-                <CardTitle>{class_.grade}{class_.section}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">{class_.name}</p>
-              </CardContent>
-            </Card>
+            <ClassCard key={class_.id} class_={class_} />
           ))}
         </div>
       )}

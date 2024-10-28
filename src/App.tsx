@@ -1,9 +1,10 @@
+import { useState, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sidebar } from "./components/layout/Sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "./components/layout/Sidebar";
 import { ClassList } from "./components/classes/ClassList";
 import { SubjectList } from "./components/subjects/SubjectList";
 
@@ -25,26 +26,33 @@ function App() {
 
   return (
     <Router>
-      <div className="flex h-screen overflow-hidden">
-        <div>
-          <Sidebar />
-        </div>
-        <div className="flex-1 flex flex-col overflow-y-auto">
-          <header className="border-b border-gray-200 dark:border-gray-800 p-4">
-            <div className="flex justify-end">
-              <Button variant="ghost" onClick={toggleDarkMode}>
-                {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-              </Button>
+      <SidebarProvider defaultOpen>
+        <div className="flex w-full h-screen overflow-hidden bg-gray-950">
+          <AppSidebar />
+          <main className="flex-1 items-center flex flex-col h-full">
+            <div className="flex flex-col w-full h-full">
+              <header className="border-b border-gray-200 dark:border-gray-800 p-4">
+                <div className="flex justify-end items-center px-4">
+                  <SidebarTrigger className="mr-auto" />
+                  <Button variant="ghost" onClick={toggleDarkMode}>
+                    {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+                  </Button>
+                </div>
+              </header>
+              <div className="flex-1 overflow-y-auto">
+                <div className="flex justify-center min-h-full">
+                  <div className="w-7/12 py-6">
+                    <Routes>
+                      <Route path="/" element={<ClassList />} />
+                      <Route path="/subjects" element={<SubjectList />} />
+                    </Routes>
+                  </div>
+                </div>
+              </div>
             </div>
-          </header>
-          <main className="m-4 flex-1">
-            <Routes>
-              <Route path="/" element={<ClassList />} />
-              <Route path="/subjects" element={<SubjectList />} />
-            </Routes>
           </main>
         </div>
-      </div>
+      </SidebarProvider>
     </Router>
   );
 }
