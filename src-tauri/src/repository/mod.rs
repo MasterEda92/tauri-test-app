@@ -1,4 +1,5 @@
 mod class_repository;
+mod subject_repository;
 
 use async_trait::async_trait;
 use crate::error::AppResult;
@@ -13,3 +14,4 @@ pub trait Repository<T> {
 }
 
 pub use class_repository::SqliteClassRepository;
+pub use subject_repository::SqliteSubjectRepository;
