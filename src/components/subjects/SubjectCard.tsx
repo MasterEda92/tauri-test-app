@@ -13,8 +13,9 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Trash2 } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { SubjectFormData, SubjectFormDialog } from "./SubjectFormDialog";
 
 export interface SubjectCardProps {
   subject: Subject;
@@ -23,7 +24,8 @@ export interface SubjectCardProps {
 }
 
 export function SubjectCard({ subject, className, onSubjectDeleted }: SubjectCardProps) {
-  const [isDeleting, setIsDeleting] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
   const handleDelete = async () => {
     try {
@@ -38,6 +40,16 @@ export function SubjectCard({ subject, className, onSubjectDeleted }: SubjectCar
     }
   };
 
+  const handleUpdate = async (data: SubjectFormData) => {
+    const updatedSubject: Subject = {
+      id: subject.id,
+      name: data.name,
+      short_name: data.short_name
+    };
+    await subjectApi.update(updatedSubject);
+    onSubjectDeleted(); // Lädt die Liste neu
+  };
+
   return (
     <Card className={cn("flex flex-col relative", className)}>
       <CardHeader>
@@ -47,7 +59,24 @@ export function SubjectCard({ subject, className, onSubjectDeleted }: SubjectCar
         >
           {subject.name}
         </CardTitle>
-        <div className="absolute top-4 right-4">
+        <div className="absolute top-4 right-4 flex gap-2">
+          <SubjectFormDialog
+            open={isEditDialogOpen}
+            onOpenChange={setIsEditDialogOpen}
+            onSubmit={handleUpdate}
+            initialData={subject}
+            triggerButton={
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 text-muted-foreground hover:text-blue-500"
+              >
+                <Pencil className="h-4 w-4" />
+              </Button>
+            }
+            title="Fach bearbeiten"
+            submitButtonText="Aktualisieren"
+          />
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button
