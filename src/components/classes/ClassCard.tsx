@@ -16,23 +16,25 @@ import {
     AlertDialogTrigger,
   } from "@/components/ui/alert-dialog";
   import { Button } from "@/components/ui/button";
-  import { Trash2 } from "lucide-react";
+  import { Pencil, Trash2 } from "lucide-react";
   import { Class, classApi } from "@/lib/db";
   import { useState } from "react";
+  import { ClassFormData, ClassFormDialog } from "./ClassFormDialog";
   
   export interface ClassCardProps {
     class_: Class;
-    onClassDeleted: () => void;
+    onClassChanged: () => void;
   }
   
-  export const ClassCard = ({ class_, onClassDeleted }: ClassCardProps) => {
+export const ClassCard = ({ class_, onClassChanged: onClassChanged }: ClassCardProps) => {
     const [isDeleting, setIsDeleting] = useState(false);
+    const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   
     const handleDelete = async () => {
       try {
         setIsDeleting(true);
         await classApi.delete(class_.id!);
-        onClassDeleted();
+        onClassChanged();
       } catch (error) {
         console.error("Failed to delete class:", error);
         // Hier könnte eine Toast-Benachrichtigung eingebaut werden
@@ -40,12 +42,40 @@ import {
         setIsDeleting(false);
       }
     };
+
+    const handleUpdate = async (data: ClassFormData) => {
+        const updatedClass: Class = {
+          id: class_.id,
+          name: data.name,
+          grade: data.grade,
+          section: data.section
+        };
+        await classApi.update(updatedClass);
+        onClassChanged(); // Lädt die Liste neu
+      };
   
     return (
-      <Card>
+        <Card>
         <CardHeader className="relative">
           <CardTitle>{class_.grade}{class_.section}</CardTitle>
-          <div className="absolute top-4 right-4">
+          <div className="absolute top-4 right-4 flex gap-2">
+            <ClassFormDialog
+              open={isEditDialogOpen}
+              onOpenChange={setIsEditDialogOpen}
+              onSubmit={handleUpdate}
+              initialData={class_}
+              triggerButton={
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8 text-muted-foreground hover:text-blue-500"
+                >
+                  <Pencil className="h-4 w-4" />
+                </Button>
+              }
+              title="Klasse bearbeiten"
+              submitButtonText="Aktualisieren"
+            />
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button

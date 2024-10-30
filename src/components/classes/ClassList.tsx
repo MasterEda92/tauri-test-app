@@ -58,7 +58,7 @@ export function ClassList() {
             <ClassCard 
               key={class_.id} 
               class_={class_} 
-              onClassDeleted={loadClasses}
+              onClassChanged={loadClasses}
             />
           ))}
         </div>
