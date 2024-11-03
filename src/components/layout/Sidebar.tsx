@@ -41,13 +41,19 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
-        <div className="flex flex-row justify-start items-center gap-3 p-2">
-          <ChalkboardTeacher 
-            
-            className="text-4xl text-primary hover:text-primary/80 transition-colors" 
-          />
-          <p className="text-2xl">Planedo</p>
-        </div>        
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+            asChild 
+            isActive={location.pathname === '/home'}
+            >
+              <Link to='/home'>
+                <ChalkboardTeacher className="h-4 w-4" />
+                <span className="text-2xl">Planedo</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>  
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
